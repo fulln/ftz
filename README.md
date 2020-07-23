@@ -13,7 +13,7 @@ git clone git@github.com:fulln/docker-develop-env.git
 4. 将本项目从github上下载到服务器
 
 ```shell script
-git clone git@github.com:fulln/docker-develop-env.git
+git clone git@github.com:fulln/ftz.git
 ```
 
 - 将本项目中`docker-compose.yml`替换掉环境依赖包中的`docker-compose.yml`
