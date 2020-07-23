@@ -1,0 +1,29 @@
+logging:
+    file:
+        path: CONSOLE,debug,FILE
+        name: logs/service/ftz-logging.log
+    level:
+        me:
+            fulln:
+                ftz:
+                    dao: info
+server:
+    port: 8082
+spring:
+    messages:
+        basename: language.messages
+    redis:
+        lettuce:
+            pool:
+                max-active: 8
+                max-idle: 8
+                max-wait: -1
+                min-idle: 0
+    thymeleaf:
+        cache: false
+        mode: HTML
+        prefix: classpath:/templates/page/
+    profiles:
+        active: ${spring_profiles_active:dev}
+mybatis:
+    mapper-locations: classpath:mapping/*Mapper.xml

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>play</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1 ,maximum-scale=1, user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=9"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="stylesheet" href="js/bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <link href="font/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
+    <style>
+        #output video {
+            width: 100%;
+        }
+
+        #progressBar {
+            height: 5px;
+            width: 0%;
+            background-color: #35b44f;
+            transition: width .4s ease-in-out;
+        }
+
+        body.is-seed .show-seed {
+            display: inline;
+        }
+
+        body.is-seed .show-leech {
+            display: none;
+        }
+
+        .show-seed {
+            display: none;
+        }
+
+        #status code {
+            font-size: 90%;
+            font-weight: 700;
+            margin-left: 3px;
+            margin-right: 3px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        .is-seed #hero {
+            background-color: #154820;
+            transition: .5s .5s background-color ease-in-out;
+        }
+
+        #hero {
+            background-color: #2a3749;
+        }
+
+        #status {
+            color: #fff;
+            font-size: 17px;
+            padding: 5px;
+        }
+
+        a:link, a:visited {
+            color: #30a247;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div th:include="common/head"></div>
+            <div class="col-md-9 col-md-offset-2">
+                    <form class="layui-form layui-form-pane" lay-filter="paneForm">
+                        <div class="modal-body">
+                            <div class="layui-form-item layui-col-md-offset2">
+                                <label class="layui-form-label">文章名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="articleName" lay-verify="articleName" placeholder="请输入"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">*6个字符以上</div>
+                            </div>
+                            <div class="layui-form-item layui-col-md-offset2">
+                                <label class="layui-form-label">文章tag</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="articleTag" lay-verify="articleTag" placeholder="请输入"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">*多个以','分开</div>
+                            </div>
+                            <div class="layui-form-item layui-col-md-offset2">
+                                <label class="layui-form-label">文章分类</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="articleCategory" lay-verify="articleCategory"
+                                           placeholder="请输入"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">*3-20个字符</div>
+                            </div>
+                            <div class="layui-form-item layui-col-md-offset2">
+                                <label class="layui-form-label">文章文件名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="articleFileName" lay-verify="articleFileName"
+                                           placeholder="请输入"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">*</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="layui-btn btn-default" data-dismiss="modal" id="closeThis">关闭
+                            </button>
+                            <button type="button" lay-submit lay-filter="articleForm"
+                                    class="layui-btn layui-btn-primary">
+                                编辑文章
+                            </button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+<div th:replace="common/script::js"></div>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="js/torrent/webtorrent.min.js"></script>
+<script src="js/torrent/moment.min.js"></script>
+<script src="js/layer/layui.js"></script>
+<script src="js/basic/common.js"></script>
+
+<script>
+
+
+</script>
+
+</body>
+</html>

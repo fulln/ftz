@@ -1,0 +1,28 @@
+.form-control {
+    display: inline;
+    width: inherit;
+	padding: inherit; 
+}
+
+#endDate{
+	margin-right: 20%;
+}
+#userinput{
+	margin-right: 20%;
+}
+.table th, .table td { 
+text-align: center;
+vertical-align: middle!important;
+}
+#pageNO{
+	width: 44px;
+    height: 29px;
+}
+.pager li a{
+	padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.pager{
+	     text-align: right;
+}

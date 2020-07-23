@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>rank</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
+    <div th:replace="common/link::header"></div>
+</head>
+<body>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div th:include="common/head"></div>
+    </div>
+</div>
+<div id="article-table">
+    <div class="row clearfix">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="layui-inline left">
+                <div class="layui-form">
+                    <div class="layui-form-item left">
+                        <select id="PushStatus">
+                        <option value="">请选择年份</option>
+                        <option value="2019">2019</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline left">
+                <label class="layui-form-label widthAuto" for="searchInput">姓名:</label>
+                <div class="layui-input-inline left">
+                    <input type="text" class="layui-input" id="searchInput"
+                           placeholder="姓名" onkeyup="value=keyUpValue(this)"
+                           oncontextmenu="value=keyUpValue(this)">
+                </div>
+            </div>
+            <div class="layui-inline left">
+                &nbsp;
+                <button type="button" class="btn" onclick="layCommon.reloadTable('table')"><i
+                        class="fa fa-search fa-lg"></i>
+                    搜索
+                </button>
+                <button type="button" class="btn" onclick="clear"><i
+                        class="fa fa-refresh fa-lg faLeft"></i> 刷新
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-10 col-md-offset-1">
+            <div>
+                <table id="table" class="table table-inverse" lay-filter="table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="common/script::js"></div>
+<script type="text/javascript">
+
+    let articleParams = {
+            url: 'snooker/getList',
+            method: "POST",
+            responseHandler: function (res) {
+                return {
+                    "data": res.data.records  //解析数据列表
+                };
+            },
+            queryParams: function () {
+                return {
+                    playerName: $('#searchInput').val(),
+                    season: $("#PushStatus").val()
+                }
+            }
+        }, colums = [
+            {
+                field: 'position',
+                title: '排名',
+                align: 'center',
+                sort: true
+            }, {
+                field: 'playerName',
+                title: '姓名',
+                align: 'center',
+                sort: true
+            },
+            {
+                field: 'season',
+                title: '赛季',
+                align: 'center',
+                sort: true
+            },
+            {
+                field: 'sum',
+                title: '总价值',
+                align: 'center',
+                sort: true
+            }, {
+                field: 'createSysTm',
+                title: '创建时间',
+                align: 'center',
+                sort: true,
+                templet: function (data) {
+                    return '<div><label>' + tableDateFormat(data.updateSysTm) + '</label></div>'
+                }
+            }, {
+                field: 'updateSysTm',
+                title: '更新时间',
+                align: 'center',
+                sort: true,
+                templet: function (data) {
+                    return tableDateFormat(data.updateSysTm);
+                }
+            }, {
+                field: 'operation',
+                title: '操作',
+                align: 'center',
+                toolbar: toolsOperatio()
+            }
+        ]
+
+    function toolsOperatio() {
+        return '<div><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>\n' +
+            '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></div>'
+    }
+
+
+    $(function () {
+
+        layCommon.initTable("#table", articleParams, colums);
+        layCommon.ListenTools("table", function (obj) {
+            let data = obj.data; //获得当前行数据
+            let layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            let tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if (layEvent === 'del') { //删除
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    requestBack("DELETE", "snooker/" + data.id, "name=" + data.articleFileName, function (data) {
+                        alertAuto(data.message);
+                        layCommon.reloadTable("table");
+                    });
+                });
+            }
+        });
+
+    });
+
+
+</script>
+
+</body>
+</html>

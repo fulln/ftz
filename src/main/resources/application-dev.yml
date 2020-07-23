@@ -1,0 +1,17 @@
+spring:
+  redis:
+    host: localhost
+    password: ZV5ut2FNPp/5iqE1l5feIg==
+    port: 6379
+    timeout: 5000
+  datasource:
+    url: jdbc:mysql://localhost:3306/company?useSSL=false
+    password: qq1203943228
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+
+
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.fulln.ftz.dao.PlayerRankingsDao">
+
+    <select id="selectListAndName" resultType="me.fulln.ftz.vo.PlayerRankingsVo">
+        select pr.id,
+        pr.create_sys_tm,
+        pr.update_sys_tm,
+        pr.delete_flag,
+        pr.position,
+        pr.player_id,
+        pr.season,
+        pr.sum,
+        pr.type,
+        sp.first_name,
+        sp.middle_name,
+        sp.last_name
+        from company.player_rankings pr
+        left join company.season_player sp on pr.player_id = sp.id
+        <where>
+            pr.delete_flag = 0
+            <if test="dto.season != null and dto.season != ''">
+                and pr.season = #{dto.season}
+            </if>
+            <if test="dto.playerName != null and dto.playerName != ''">
+                and (sp.first_name like concat('%',#{dto.playerName},'%')
+
+                or sp.middle_name like concat('%',#{dto.playerName},'%')
+
+                or sp.last_name like concat('%',#{dto.playerName},'%'))
+            </if>
+        </where>
+        order by pr.position
+    </select>
+</mapper>
