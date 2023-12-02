@@ -1,4 +1,4 @@
-FROM java:8
+FROM java:8u111
 MAINTAINER : fulln <i@fulln.me>
 COPY target/ftz.jar  /opt/ftz/ftz.jar
 ENV spring_profiles_active=pro
